@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'ko-KR' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171629">
+  {% seo %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% feed_meta %}
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header wrap">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="athgrow home">athgrow<span>.</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/#stories' | relative_url }}">Stories</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="테마 전환">☼</button>
+    </header>
+
+    {{ content }}
+
+    <footer class="site-footer wrap">
+      <a class="footer-brand" href="{{ '/' | relative_url }}">athgrow<span>.</span></a>
+      <p>천천히, 그러나 꾸준히. <span>© {{ site.time | date: "%Y" }} ATHGROW</span></p>
+    </footer>
+  </div>
+  <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+</body>
+</html>
