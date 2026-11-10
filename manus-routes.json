@@ -1,0 +1,4 @@
+---
+layout: null
+---
+{"routes":[{"path":"/","title":"가드너 그로우"},{"path":"/archive/","title":"아카이브"},{"path":"/about/","title":"소개"},{"path":"/write/","title":"글쓰기"}{% for post in site.posts %},{"path":{{ post.url | relative_url | jsonify }},"title":{{ post.title | jsonify }}}{% endfor %}]}

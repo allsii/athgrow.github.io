@@ -1,10 +1,15 @@
 ---
-layout: page
-title: About
+layout: default
+title: 소개
 permalink: /about/
 ---
-
-안녕하세요, **athgrow.**입니다.
-
-이곳은 배우고, 만들고, 생각한 것들을 차곡차곡 기록하는 공간입니다.
-노을이 천천히 저무는 시간처럼 서두르지 않고 꾸준히 성장하는 이야기를 담아갑니다.
+<div class="interior">
+  <header class="page-header">
+    <p class="eyebrow">ABOUT</p>
+    <h1>소개</h1>
+  </header>
+  <div class="post-body">
+    <p>안녕하세요. 이곳에 자기소개와 관심사를 자유롭게 적어 주세요.</p>
+    <p><a href="https://github.com/{{ site.github_username | escape }}">GitHub 프로필 보기</a></p>
+  </div>
+</div>

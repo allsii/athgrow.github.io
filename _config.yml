@@ -1,30 +1,24 @@
-title: "athgrow."
-description: "기록하고, 만들고, 성장하는 공간."
-url: "https://allsii.github.io"
+title: 가드너 그로우
+description: 몬스테라와 올리브나무 사이에서 천천히 배우는 식물과 흙의 기록
+url: "https://athgrow.github.io"
 baseurl: ""
+github_username: athgrow
 lang: ko-KR
 timezone: Asia/Seoul
-
 markdown: kramdown
-permalink: /:categories/:year/:month/:day/:title/
-kramdown:
-  input: GFM
-  hard_wrap: false
-
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-
-header_pages:
-  - about.md
-
-author:
-  name: "athgrow"
-
-defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-      author: athgrow
+permalink: /:year/:month/:day/:title/
+exclude:
+  - README.md
+  - THEME-SETUP.md
+  - TODO.md
+  - app.config.ts
+  - dist
+  - _site
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - package.json
+  - package-lock.json
+  - pnpm-lock.yaml
+  - yarn.lock
+  - vendor

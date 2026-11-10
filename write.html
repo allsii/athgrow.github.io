@@ -1,0 +1,87 @@
+---
+layout: default
+permalink: /write/
+title: 글 쓰기
+noindex: true
+publish_branch: main
+---
+{% assign editor_repo = site.github_username | append: '.github.io' %}
+<script src="{{ '/assets/js/editor.js' | relative_url }}" defer></script>
+
+<section class="interior editor-page"
+         id="post-editor"
+         data-owner="{{ site.github_username | escape }}"
+         data-repo="{{ editor_repo | escape }}"
+         data-branch="{{ page.publish_branch | default: 'main' | escape }}"
+         data-baseurl="{{ site.baseurl | default: '' | escape }}">
+  <header class="page-header editor-header">
+    <p class="eyebrow">WRITE <span>—</span> A NEW STORY</p>
+    <h1>새로운 기록 쓰기</h1>
+    <p>마크다운으로 이야기를 쓰고 사진을 함께 올려보세요.</p>
+  </header>
+
+  <div class="editor-notice">
+    <h2>게시 전 꼭 확인하세요</h2>
+    <p>글과 사진은 공개 저장소에 게시됩니다. 게시할 때만 토큰을 GitHub API(<code>api.github.com</code>)로 전송하며 브라우저 저장소에는 보관하지 않습니다.</p>
+    <p><strong>토큰을 다른 사람에게 공유하지 마세요.</strong> 신뢰할 수 있는 사이트 코드, 의존성 및 브라우저 확장 프로그램에서만 입력하세요. 이 페이지 자체는 로그인으로 보호되지 않습니다.</p>
+    <p>GitHub의 <strong>세분화된 개인 액세스 토큰</strong>을 사용하세요. 대상 저장소 하나만 선택하고 <strong>Contents: Read and write</strong> 권한을 부여하면 됩니다. 게시가 끝나거나 실패하면 토큰을 다시 입력해야 합니다.</p>
+    <p>페이지를 벗어나면 작성 중인 내용과 사진은 저장되지 않습니다. 종료 경고가 표시되더라도 모바일 브라우저에 따라 경고 없이 종료될 수 있으니 긴 글은 별도로 보관해 주세요.</p>
+  </div>
+
+  <noscript><p class="editor-error">글을 게시하려면 JavaScript를 켜야 합니다.</p></noscript>
+  <form id="editor-form" class="editor-form" autocomplete="off">
+    <fieldset id="editor-fields" class="editor-fields">
+      <div class="editor-field">
+        <label for="editor-token">GitHub 개인 액세스 토큰 <span aria-hidden="true">*</span></label>
+        <input id="editor-token" type="password" required autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="editor-token-help">
+        <p id="editor-token-help" class="editor-help">이 페이지는 토큰을 저장하지 않습니다. 토큰을 입력한 뒤 게시 버튼을 눌러주세요.</p>
+      </div>
+
+      <div class="editor-field">
+        <label for="editor-title">제목 <span aria-hidden="true">*</span></label>
+        <input id="editor-title" type="text" required maxlength="200" placeholder="기록의 제목" autocomplete="off">
+      </div>
+
+      <div class="editor-field">
+        <label for="editor-description">짧은 설명</label>
+        <input id="editor-description" type="text" maxlength="500" placeholder="이 글을 한 문장으로 소개해 주세요">
+      </div>
+
+      <div class="editor-grid">
+        <div class="editor-field">
+          <label for="editor-date">날짜 <span aria-hidden="true">*</span></label>
+          <input id="editor-date" type="date" required>
+        </div>
+        <div class="editor-field">
+          <label for="editor-categories">카테고리</label>
+          <input id="editor-categories" type="text" maxlength="500" placeholder="예: 일상, 여행" aria-describedby="editor-taxonomy-help">
+        </div>
+        <div class="editor-field">
+          <label for="editor-tags">태그</label>
+          <input id="editor-tags" type="text" maxlength="500" placeholder="예: 식물, 기록" aria-describedby="editor-taxonomy-help">
+        </div>
+      </div>
+      <p id="editor-taxonomy-help" class="editor-help editor-grid-help">카테고리와 태그는 쉼표로 구분해 주세요. 비워두어도 됩니다.</p>
+
+      <div class="editor-field">
+        <label for="editor-body">본문 <span aria-hidden="true">*</span></label>
+        <textarea id="editor-body" required rows="16" placeholder="여기에 마크다운으로 이야기를 써 주세요." aria-describedby="editor-body-help"></textarea>
+        <p id="editor-body-help" class="editor-help">마크다운을 사용할 수 있습니다. 사진을 선택하면 커서 위치에 이미지 문법이 추가됩니다. Liquid 구문은 실행하지 않고 글자 그대로 표시합니다.</p>
+      </div>
+
+      <div class="editor-field editor-photos">
+        <label for="editor-images">사진 첨부</label>
+        <input id="editor-images" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,image/jpeg,image/png,image/gif,image/webp" multiple aria-describedby="editor-images-help editor-images-status">
+        <p id="editor-images-help" class="editor-help">최대 5장, 한 장당 5MB 이하. JPG, PNG, GIF, WebP만 가능합니다. SVG와 HEIC는 사용할 수 없습니다.</p>
+        <p id="editor-images-status" class="editor-help" role="status" aria-live="polite"></p>
+        <ul id="editor-image-list" class="editor-image-list" aria-label="선택한 사진"></ul>
+      </div>
+    </fieldset>
+
+    <div class="editor-actions">
+      <button id="editor-publish" class="editor-publish" type="button">GitHub에 게시하기 <span aria-hidden="true">↗</span></button>
+      <p class="editor-help">버튼을 누르기 전에는 GitHub에 아무것도 전송하지 않습니다.</p>
+    </div>
+    <div id="editor-status" class="editor-status" role="status" aria-live="polite" aria-atomic="true"></div>
+  </form>
+</section>

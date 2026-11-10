@@ -1,0 +1,52 @@
+---
+layout: default
+---
+<section class="hero" aria-labelledby="hero-title">
+  <img class="hero-image" src="{{ '/assets/images/garden-hero.jpg' | relative_url }}" alt="햇살을 머금은 몬스테라와 올리브나무">
+  <div class="hero-shade"></div>
+  <div class="hero-content wrap">
+    <div class="hero-kicker"><span></span> A LITTLE SPACE TO GROW</div>
+    <h1 id="hero-title">초록을 돌보며,<br><em>나도 함께 자랍니다.</em></h1>
+    <p>몬스테라의 새 잎과 올리브나무의 느린 시간을<br>흙처럼 차곡차곡 이곳에 기록합니다.</p>
+    <a class="hero-link" href="#stories">정원 들여다보기 <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="hero-side" aria-hidden="true">TAKE ROOT, STAY A WHILE</div>
+  <div class="hero-bottom wrap"><span>EST. WITH SOIL &amp; CARE</span><span>SCROLL TO GROW <span aria-hidden="true">↓</span></span></div>
+</section>
+<div class="sea-note"><span class="sea-note-icon" aria-hidden="true">✳</span><p>천천히 자라도 괜찮아요. <strong>여기는 식물과 나를 돌보는 곳.</strong></p><span class="sea-note-end">A SMALL GARDEN ON THE INTERNET</span></div>
+<section id="stories" class="journal-section wrap">
+  <div class="section-top"><div><p class="eyebrow"><span>01</span> &nbsp; THE GARDEN JOURNAL</p><h2>잎처럼 쌓이는 이야기<span>.</span></h2><p class="section-description">식물과 흙, 그리고 돌봄의 작은 기록들</p></div><a class="text-link" href="{{ '/archive/' | relative_url }}">모든 기록 보기 <span aria-hidden="true">↗</span></a></div>
+  <div class="journal-layout">
+    <div class="journal-main">
+      <div class="browse-bar">
+        <div class="category-filters" aria-label="카테고리 선택"><button class="filter-button is-active" type="button" data-category="">전체 <span>{% if site.posts.size < 10 %}0{% endif %}{{ site.posts.size }}</span></button>{% for category in site.categories %}<button class="filter-button" type="button" data-category="{{ category[0] | downcase | escape }}">{{ category[0] | escape }}</button>{% endfor %}</div>
+        <label class="search-wrap"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">게시글 검색</span><input id="post-search" type="search" placeholder="기록 검색하기" autocomplete="off"></label>
+      </div>
+      <div class="search-status" id="search-status" aria-live="polite"></div>
+      {% assign featured = site.posts | where: 'featured', true | first %}{% unless featured %}{% assign featured = site.posts | first %}{% endunless %}
+      <div class="posts-list">
+        {% if featured %}
+        <article class="featured-card post-item" data-post data-categories="{{ featured.categories | jsonify | escape }}" data-tags="{{ featured.tags | jsonify | escape }}" data-search="{{ featured.title | append: ' ' | append: featured.description | append: ' ' | append: featured.content | strip_html | downcase | escape }}">
+          <a class="featured-image-link" href="{{ featured.url | relative_url }}" aria-label="{{ featured.title | escape }} 읽기"><img src="{% if featured.image %}{{ featured.image | relative_url }}{% else %}{{ '/assets/images/garden-cover.jpg' | relative_url }}{% endif %}" alt="싱그러운 몬스테라 잎"><span class="image-badge">FEATURED STORY</span><span class="image-index">01 / THE GARDEN JOURNAL</span></a>
+          <div class="featured-content"><div class="post-label"><span>{{ featured.categories | first | default: '기록' | escape }}</span><i></i><time datetime="{{ featured.date | date_to_xmlschema }}">{{ featured.date | date: '%Y.%m.%d' }}</time></div><a class="featured-title" href="{{ featured.url | relative_url }}">{{ featured.title | escape }}</a><p>{{ featured.description | default: featured.excerpt | strip_html | truncate: 115 | escape }}</p><div class="card-bottom"><span>TAKE YOUR TIME READING</span><a href="{{ featured.url | relative_url }}" aria-label="{{ featured.title | escape }} 읽기">↗</a></div></div>
+        </article>
+        {% endif %}
+        <div class="recent-title"><span>MORE STORIES</span><span>조금 더 들여다보기</span></div>
+        {% for post in site.posts %}{% if post.url != featured.url %}
+        <article class="story-row post-item" data-post data-categories="{{ post.categories | jsonify | escape }}" data-tags="{{ post.tags | jsonify | escape }}" data-search="{{ post.title | append: ' ' | append: post.description | append: ' ' | append: post.content | strip_html | downcase | escape }}">
+          <div class="story-date"><strong>{{ post.date | date: '%d' }}</strong><span>{{ post.date | date: '%b %Y' | upcase }}</span></div><div class="story-content"><div class="post-label"><span>{{ post.categories | first | default: '기록' | escape }}</span></div><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a><p>{{ post.description | default: post.excerpt | strip_html | truncate: 75 | escape }}</p><div class="row-tags">{% for tag in post.tags limit: 3 %}<span>#{{ tag | escape }}</span>{% endfor %}</div></div><a class="story-arrow" href="{{ post.url | relative_url }}" aria-label="{{ post.title | escape }} 읽기">↗</a>
+        </article>{% endif %}{% endfor %}
+      </div>
+      <p class="empty-message" id="no-results" hidden>이 조건에 맞는 기록이 아직 없어요. 다른 단어로 찾아보세요.</p>
+      {% if site.posts == empty %}<p class="empty-message">아직 기록이 없어요. 첫 번째 글을 기다리고 있습니다.</p>{% endif %}
+    </div>
+    <aside class="sidebar" aria-label="블로그 소개와 카테고리">
+      <div class="about-card"><div class="aside-label"><span>ABOUT THIS GARDEN</span><span>✳</span></div><div class="shell-frame"><img src="{{ '/assets/images/grow-profile.jpg' | relative_url }}" alt="화분과 흙 곁의 올리브나무"><span>leaves, soil, little moments</span></div><div class="about-copy"><p class="handwritten">hello, I'm</p><h3>garden grow<span>.</span></h3><p>식물을 돌보며 배우고,<br>흙에 남은 계절을 기록합니다.</p><a href="{{ '/about/' | relative_url }}">이 정원에 대하여 <span aria-hidden="true">↗</span></a></div></div>
+      <div class="side-block side-categories"><div class="side-heading"><span>CATEGORIES · 카테고리</span><span>✳</span></div><div class="side-category-list"><button class="filter-button side-category is-active" type="button" data-category="" aria-pressed="true"><span>전체 글</span><span>{{ site.posts.size }}</span></button>{% for category in site.categories %}<button class="filter-button side-category" type="button" data-category="{{ category[0] | downcase | escape }}" aria-pressed="false"><span>{{ category[0] | escape }}</span><span>{{ category[1].size }}</span></button>{% endfor %}</div></div>
+      <div class="side-block"><div class="side-heading"><span>EXPLORE BY TAG</span><span>✳</span></div><div class="tag-cloud">{% for tag in site.tags %}<button class="tag-filter" type="button" data-tag="{{ tag[0] | downcase | escape }}"># {{ tag[0] | escape }}</button>{% endfor %}</div></div>
+      <div class="side-quote"><span>“</span><p>새 잎은<br>조용히 자라는 시간까지<br>기억하니까.</p><small>A NOTE TO MY PLANTS</small></div>
+      <div class="side-github"><div><span>FIND ME ELSEWHERE</span><p>식물과 함께하는 곳</p></div><a href="https://github.com/{{ site.github_username | escape }}" target="_blank" rel="noopener noreferrer" aria-label="Allsii GitHub 열기">↗</a></div>
+    </aside>
+  </div>
+</section>
+<div class="closing"><div class="closing-inner wrap"><div class="closing-shell" aria-hidden="true"><img src="{{ '/assets/images/leaf-mark.svg' | relative_url }}" alt=""></div><p>천천히 자라다 가세요.</p><span>THANK YOU FOR GROWING HERE</span></div></div>
